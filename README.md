@@ -50,6 +50,10 @@ Compatible AI agents automatically discover the `SKILL.md` file and load the ins
 
 See [SKILL.md](SKILL.md) for the full agent instructions and [references/REFERENCE.md](references/REFERENCE.md) for the detailed API reference.
 
+## Related
+
+This skill is part of the [Simple Image Tool](https://github.com/FWcloud916/vscode-simple-image-tool) VS Code extension, which provides the same capabilities through a graphical interface and a GitHub Copilot chat participant (`@image-tool`).
+
 ## License
 
 MIT
