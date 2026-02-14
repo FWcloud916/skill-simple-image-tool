@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "Pillow",
+#     "numpy",
+# ]
+# ///
 """Image matting tool - removes specified colors from an image."""
 import sys
 import json
@@ -10,7 +17,7 @@ try:
     from PIL import Image
 except ImportError as e:
     print(json.dumps({
-        "error": f"Missing Python package: {e}. Install with: pip3 install Pillow numpy"
+        "error": f"Missing Python package: {e}. Run with: uv run scripts/image_matting.py"
     }))
     sys.exit(1)
 

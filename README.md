@@ -22,25 +22,21 @@ git clone git@github.com:FWcloud916/skill-simple-image-tool.git image-processing
 
 ### Dependencies
 
-Python 3 with Pillow and numpy:
-
-```bash
-pip install Pillow numpy
-```
+Python 3 and [uv](https://docs.astral.sh/uv/). Each script declares its own dependencies via PEP 723 inline metadata, so `uv run` handles installation automatically.
 
 ## Quick Start
 
 ```bash
 # Convert format
-python scripts/convert_image.py logo.png webp
+uv run scripts/convert_image.py logo.png webp
 # {"success": true, "output": "logo.webp"}
 
 # Resize (auto height)
-python scripts/resize_image.py photo.jpg 512 0
+uv run scripts/resize_image.py photo.jpg 512 0
 # {"success": true, "output": "photo_512x384.jpg", "width": 512, "height": 384}
 
 # Remove white background
-python scripts/image_matting.py logo.png "#FFFFFF" 30 5 logo_matted.png
+uv run scripts/image_matting.py logo.png "#FFFFFF" 30 5 logo_matted.png
 # {"success": true, "output": "logo_matted.png"}
 ```
 

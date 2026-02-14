@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "Pillow",
+# ]
+# ///
 """Image resize tool.
 
 Usage:
@@ -14,7 +20,7 @@ from pathlib import Path
 try:
     from PIL import Image
 except ImportError as e:
-    print(json.dumps({"error": f"Missing Python package: {e}. Install with: pip3 install Pillow"}))
+    print(json.dumps({"error": f"Missing Python package: {e}. Run with: uv run scripts/resize_image.py"}))
     sys.exit(1)
 
 

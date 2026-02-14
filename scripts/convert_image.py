@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "Pillow",
+# ]
+# ///
 """Image format conversion tool."""
 import sys
 import json
@@ -9,7 +15,7 @@ from io import BytesIO
 try:
     from PIL import Image
 except ImportError as e:
-    print(json.dumps({"error": f"Missing Python package: {e}. Install with: pip3 install Pillow"}))
+    print(json.dumps({"error": f"Missing Python package: {e}. Run with: uv run scripts/convert_image.py"}))
     sys.exit(1)
 
 
@@ -82,7 +88,7 @@ def convert_from_svg(input_path, target_format):
     except ImportError:
         return json.dumps({
             "error": "SVG-to-raster conversion requires cairosvg. "
-                     "Install with: pip3 install cairosvg"
+                     "Install with: uv pip install cairosvg"
         })
 
     pil_format, ext = FORMAT_MAP[target_format]

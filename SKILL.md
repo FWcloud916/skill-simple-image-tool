@@ -9,7 +9,7 @@ description: >-
 metadata:
   author: FWcloud916
   version: "1.0"
-compatibility: Requires Python 3 with Pillow and numpy. Install with pip install Pillow numpy.
+compatibility: Requires Python 3 and uv. Dependencies are declared inline (PEP 723) and installed automatically by uv run.
 ---
 
 # Image Processing
@@ -18,23 +18,21 @@ Three Python scripts for converting formats, resizing, and removing backgrounds.
 
 ## Setup
 
-```bash
-pip install Pillow numpy
-```
+Requires [uv](https://docs.astral.sh/uv/). Each script declares its own dependencies via PEP 723 inline metadata, so `uv run` handles installation automatically.
 
 ## Convert Format
 
 Converts between JPG, PNG, WebP, and SVG.
 
 ```bash
-python scripts/convert_image.py <input_path> <target_format>
+uv run scripts/convert_image.py <input_path> <target_format>
 ```
 
 **Supported formats**: jpg, jpeg, png, webp, svg, bmp, tiff, gif
 
 **Example**:
 ```bash
-python scripts/convert_image.py logo.png webp
+uv run scripts/convert_image.py logo.png webp
 # Output: {"success": true, "output": "logo.webp"}
 ```
 
@@ -48,21 +46,21 @@ python scripts/convert_image.py logo.png webp
 Resizes with aspect ratio preservation. Width or height of `0` means auto-calculate.
 
 ```bash
-python scripts/resize_image.py <input_path> <width> <height>
+uv run scripts/resize_image.py <input_path> <width> <height>
 ```
 
 **Examples**:
 ```bash
 # Exact dimensions
-python scripts/resize_image.py photo.jpg 800 600
+uv run scripts/resize_image.py photo.jpg 800 600
 # Output: {"success": true, "output": "photo_800x600.jpg", "width": 800, "height": 600}
 
 # Width only (auto height)
-python scripts/resize_image.py photo.jpg 512 0
+uv run scripts/resize_image.py photo.jpg 512 0
 # Output: {"success": true, "output": "photo_512x384.jpg", "width": 512, "height": 384}
 
 # Height only (auto width)
-python scripts/resize_image.py photo.jpg 0 256
+uv run scripts/resize_image.py photo.jpg 0 256
 # Output: {"success": true, "output": "photo_341x256.jpg", "width": 341, "height": 256}
 ```
 
@@ -73,7 +71,7 @@ Output filename follows the pattern: `{stem}_{width}x{height}{ext}`
 Removes specified colors from an image, making them transparent. Uses Euclidean distance in RGB color space.
 
 ```bash
-python scripts/image_matting.py <input> <colors> <tolerance> <feather> [output_path]
+uv run scripts/image_matting.py <input> <colors> <tolerance> <feather> [output_path]
 ```
 
 **Parameters**:
@@ -85,15 +83,15 @@ python scripts/image_matting.py <input> <colors> <tolerance> <feather> [output_p
 **Examples**:
 ```bash
 # Remove white background, save to file
-python scripts/image_matting.py logo.png "#FFFFFF" 30 5 logo_matted.png
+uv run scripts/image_matting.py logo.png "#FFFFFF" 30 5 logo_matted.png
 # Output: {"success": true, "output": "logo_matted.png"}
 
 # Remove green screen
-python scripts/image_matting.py photo.jpg "#00FF00" 50 10 photo_clean.png
+uv run scripts/image_matting.py photo.jpg "#00FF00" 50 10 photo_clean.png
 # Output: {"success": true, "output": "photo_clean.png"}
 
 # Get base64 result (no output path)
-python scripts/image_matting.py logo.png "#FFFFFF" 30 5
+uv run scripts/image_matting.py logo.png "#FFFFFF" 30 5
 # Output: {"success": true, "base64": "iVBORw0KGgo..."}
 ```
 
@@ -112,21 +110,21 @@ All scripts output JSON with an `output` field containing the result file path. 
 
 ```bash
 # Step 1: Remove white background
-python scripts/image_matting.py logo.jpg "#FFFFFF" 30 5 logo_matted.png
+uv run scripts/image_matting.py logo.jpg "#FFFFFF" 30 5 logo_matted.png
 
 # Step 2: Resize the result
-python scripts/resize_image.py logo_matted.png 512 512
+uv run scripts/resize_image.py logo_matted.png 512 512
 
 # Step 3: Convert to WebP
-python scripts/convert_image.py logo_matted_512x512.png webp
+uv run scripts/convert_image.py logo_matted_512x512.png webp
 ```
 
 Parse the JSON output to get the exact file path for the next step:
 
 ```bash
-output=$(python scripts/convert_image.py input.png webp)
+output=$(uv run scripts/convert_image.py input.png webp)
 next_file=$(echo "$output" | python -c "import sys,json; print(json.load(sys.stdin)['output'])")
-python scripts/resize_image.py "$next_file" 256 256
+uv run scripts/resize_image.py "$next_file" 256 256
 ```
 
 ## Error Handling

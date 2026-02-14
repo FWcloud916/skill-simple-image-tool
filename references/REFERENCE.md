@@ -4,7 +4,7 @@
 
 ### Usage
 ```
-python scripts/convert_image.py <input_path> <target_format>
+uv run scripts/convert_image.py <input_path> <target_format>
 ```
 
 ### Arguments
@@ -35,7 +35,7 @@ python scripts/convert_image.py <input_path> <target_format>
 - Preserves original dimensions in the SVG viewBox
 
 **SVG to raster**:
-- Requires `cairosvg` package (`pip install cairosvg`)
+- Requires `cairosvg` package (`uv pip install cairosvg`)
 - Converts via PNG intermediate
 - Applies same JPEG handling for alpha channels
 
@@ -55,7 +55,7 @@ python scripts/convert_image.py <input_path> <target_format>
 
 ### Usage
 ```
-python scripts/resize_image.py <input_path> <width> <height>
+uv run scripts/resize_image.py <input_path> <width> <height>
 ```
 
 ### Arguments
@@ -94,7 +94,7 @@ Both width and height cannot be `0` simultaneously.
 
 ### Usage
 ```
-python scripts/image_matting.py <input> <colors> <tolerance> <feather> [output_path]
+uv run scripts/image_matting.py <input> <colors> <tolerance> <feather> [output_path]
 ```
 
 ### Arguments
